@@ -23,8 +23,9 @@ client.on('ready', async () => {
   const rows = await readRowsNoOutreach(sheet);
 
   // Refactored from .forEach to for...of for proper async/await sequencing
-  try {
-    for (let index = 0; index < rows.length; index++) {
+
+  for (let index = 0; index < rows.length; index++) {
+    try {
       const row = rows[index];
       const number = row[4]; // Assuming column E is at index 4
       const numberId = await getNumberSeries(number, client);
@@ -41,16 +42,17 @@ client.on('ready', async () => {
       }
       await writeFirstOutreach(sheet, rowNumber);
       console.log(`Updated status row ${rowNumber} to 'first outreach'`);
-      console.log('\n');
       // wait between 60 and 180 seconds before sending the next message
       const waitTime = Math.floor(Math.random() * (180000 - 60000 + 1)) + 60000;
+      console.log('waiting for', waitTime / 1000, 'seconds before next message');
       await new Promise((resolve) => setTimeout(resolve, waitTime));
+      console.log('\n');
+    } catch (err) {
+      console.error(`Error processing row ${index + 1}:`, err.message);
     }
     console.log('All messages processed.');
     await client.logout();
     await client.destroy();
-  } catch (err) {
-    console.error('Error processing rows:', err.message);
   }
 });
 
