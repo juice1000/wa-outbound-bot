@@ -1,0 +1,30 @@
+{
+  "name": "wa-outbound-bot",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/juice1000/wa-outbound-bot#readme",
+  "bugs": {
+    "url": "https://github.com/juice1000/wa-outbound-bot/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/juice1000/wa-outbound-bot.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon src/index.js",
+    "test:gsheet": "node src/init_gsheet.js",
+    "start": "node src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "dotenv": "^16.5.0",
+    "google-auth-library": "^10.1.0",
+    "googleapis": "^150.0.1",
+    "qrcode-terminal": "^0.12.0",
+    "whatsapp-web.js": "^1.30.0"
+  }
+}
