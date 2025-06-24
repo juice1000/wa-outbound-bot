@@ -42,8 +42,8 @@ client.on('ready', async () => {
       await writeFirstOutreach(sheet, rowNumber);
       console.log(`Updated status row ${rowNumber} to 'first outreach'`);
       console.log('\n');
-      // wait between 15 and 60 seconds before sending the next message
-      const waitTime = Math.floor(Math.random() * (60000 - 15000 + 1)) + 15000; // Random wait between 15 and 60 seconds
+      // wait between 60 and 180 seconds before sending the next message
+      const waitTime = Math.floor(Math.random() * (180000 - 60000 + 1)) + 60000;
       await new Promise((resolve) => setTimeout(resolve, waitTime));
     }
     console.log('All messages processed.');
