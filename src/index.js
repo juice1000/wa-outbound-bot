@@ -1,5 +1,5 @@
 // install with: npm install whatsapp-web.js qrcode-terminal
-const { Client } = require('whatsapp-web.js');
+const { Client, MessageMedia } = require('whatsapp-web.js');
 const qrcode = require('qrcode-terminal');
 const { initGSheetFromEnv } = require('./init_gsheet');
 const { readRowsNoOutreach, findRowNumberByUniqueId } = require('./read_gsheet');
@@ -37,7 +37,8 @@ client.on('ready', async () => {
       }
       const message = row[7];
       if (message) {
-        await client.sendMessage(numberId._serialized, message);
+        const media = MessageMedia.fromFilePath('/Users/julienlook/Documents/Coding/wa-outbound-bot/data/image.png');
+        await client.sendMessage(numberId._serialized, message, { media });
         console.log(`Row ${rowNumber} - Sent message`);
       }
       await writeFirstOutreach(sheet, rowNumber);
@@ -50,10 +51,10 @@ client.on('ready', async () => {
     } catch (err) {
       console.error(`Error processing row ${index + 1}:`, err.message);
     }
-    console.log('All messages processed.');
-    await client.logout();
-    await client.destroy();
   }
+  console.log('All messages processed.');
+  await client.logout();
+  await client.destroy();
 });
 
 client.initialize();
